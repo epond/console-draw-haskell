@@ -11,5 +11,7 @@ main = do
     if (((toLower . pack) enteredCommand) == "q")
         then return ()
         else do
-            putStrLn $ parseCommand enteredCommand
+            case (parseCommand enteredCommand) of
+                Just command -> putStrLn command
+                Nothing      -> putStrLn "Command not recognised"
             main
