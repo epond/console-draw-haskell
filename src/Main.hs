@@ -4,7 +4,7 @@ module Main where
 
 import System.Environment
 import Data.Text
-import CommandInterpreter
+import Command
 
 main = do
     enteredCommand <- getLine
