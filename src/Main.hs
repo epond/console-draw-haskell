@@ -9,11 +9,13 @@ import Drawing
 
 main :: IO ()
 main = do
-    putStrLn "Welcome to Console Draw"
     drawingConsole emptyCanvas
 
+-- TODO can this recursion be rewritten to use foldl to ensure tail recursion?
 drawingConsole :: Canvas -> IO ()
 drawingConsole canvas = do
+    -- TODO find a way to avoid this additional newline as putStr doesn't immediately write to stdout 
+    putStrLn "enter command: "
     enteredCommand <- getLine
     if (((toLower . pack) enteredCommand) == "q")
         then return ()
