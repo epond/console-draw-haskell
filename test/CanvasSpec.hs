@@ -26,6 +26,8 @@ spec = do
     describe "Canvas" $ do
         it "can be created from width and height" $ do
             show (createNewCanvas 20 4) `shouldBe` canvasEmpty
+        it "can read and show as the inverse of each other" $ do
+            show (read canvasWithTwoLines :: Canvas) `shouldBe` canvasWithTwoLines
         it "can determine width" $ do
             canvasWidth (createNewCanvas 10 5) `shouldBe` 10
             canvasWidth emptyCanvas `shouldBe` 0

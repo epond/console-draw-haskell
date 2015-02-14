@@ -1,6 +1,6 @@
 module Canvas where
 
-data Canvas = Canvas{rows :: [[Char]]}
+data Canvas = Canvas{rows :: [[Char]]} deriving Eq
 
 emptyCanvas :: Canvas
 emptyCanvas = Canvas([])
