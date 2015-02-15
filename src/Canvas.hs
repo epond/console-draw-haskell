@@ -1,5 +1,7 @@
 module Canvas where
 
+import qualified Command as CO
+
 data Canvas = Canvas{rows :: [[Char]]} deriving Eq
 
 emptyCanvas :: Canvas
@@ -22,8 +24,12 @@ canvasWidth :: Canvas -> Int
 canvasWidth canvas = if (length . rows) canvas == 0 then 0
                      else (length . head . rows) canvas - 2
 
+getNode :: Canvas -> CO.Coordinates -> Maybe Char
+getNode canvas point = Nothing -- TODO
+--if (!isOutOfBounds(position, this)) Some(rows(position.row)(position.column)) else None
 
 instance Show Canvas where
+    -- removes the last newline character
     show canvas = reverse . drop 1 . reverse . unlines $ rows canvas
 
 instance Read Canvas where

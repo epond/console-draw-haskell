@@ -17,6 +17,9 @@ blank20by4Canvas = read "\
 
 spec :: Spec
 spec = do
+    describe "drawLayer" $ do
+        it "Given an empty ColourLayer and empty Canvas then return the empty Canvas" $ do
+            drawLayer emptyLayer emptyCanvas `shouldBe` Right emptyCanvas
     describe "applyCommand" $ do
         it "Given a NewCanvas command then return a blank canvas" $ do
             applyCommand (NewCanvasCommand 20 4) emptyCanvas `shouldBe` Right blank20by4Canvas
