@@ -33,9 +33,9 @@ spec = do
 \----------------------" :: Canvas
             drawLayer layer blank20by4Canvas `shouldBe` Right expectedCanvas
         it "Given a ColourLayer out of the Canvas bounds then return an error" $ do
-            drawLayer (ColourLayer [Coordinates 4 1] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
-            drawLayer (ColourLayer [Coordinates 3 2, Coordinates 3 3] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
-            drawLayer (ColourLayer [Coordinates 3 3] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
+            drawLayer (ColourLayer [Coordinates 21 1] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
+            drawLayer (ColourLayer [Coordinates 20 4, Coordinates 20 5] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
+            drawLayer (ColourLayer [Coordinates 20 5] 'x') blank20by4Canvas `shouldBe` Left "Out of bounds"
     describe "applyCommand" $ do
         it "Given a NewCanvas command then return a blank canvas" $ do
             applyCommand (NewCanvasCommand 20 4) emptyCanvas `shouldBe` Right blank20by4Canvas

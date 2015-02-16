@@ -25,12 +25,12 @@ canvasWidth canvas = if (length . rows) canvas == 0 then 0
                      else (length . head . rows) canvas - 2
 
 getNode :: Canvas -> CO.Coordinates -> Maybe Char
-getNode canvas point = if not (isOutOfBounds point canvas)
+getNode canvas point = if not (isOutOfBounds canvas point)
                        then Just ((rows canvas !! (CO.row point)) !! (CO.column point))
                        else Nothing
 
-isOutOfBounds :: CO.Coordinates -> Canvas -> Bool
-isOutOfBounds point canvas = (CO.column point < 1 || CO.column point > canvasWidth canvas) ||
+isOutOfBounds :: Canvas -> CO.Coordinates -> Bool
+isOutOfBounds canvas point = (CO.column point < 1 || CO.column point > canvasWidth canvas) ||
                              (CO.row point < 1    || CO.row point >    canvasHeight canvas)
 
 instance Show Canvas where

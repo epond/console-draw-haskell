@@ -9,7 +9,13 @@ applyCommand (CO.DrawLineCommand startPos endPos) canvas = drawLine startPos end
 applyCommand _ _ = Left "Not Implemented"
 
 drawLayer :: ColourLayer -> CA.Canvas -> Either String CA.Canvas
-drawLayer _ _ = Left "Cannot draw a layer yet"
+drawLayer (ColourLayer points colour) canvas
+    | exists points (CA.isOutOfBounds canvas) = Left "Out of bounds"
+    | otherwise                               = Left "Work in progress"
+
+exists :: [CO.Coordinates] -> (CO.Coordinates -> Bool) -> Bool
+exists [] _ = False
+exists (x:xs) f = f x || exists xs f
 
 drawLine :: CO.Coordinates -> CO.Coordinates -> CA.Canvas -> Either String CA.Canvas
 drawLine _ _ _ = Right CA.emptyCanvas -- TODO
