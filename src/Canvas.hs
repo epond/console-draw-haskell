@@ -25,8 +25,13 @@ canvasWidth canvas = if (length . rows) canvas == 0 then 0
                      else (length . head . rows) canvas - 2
 
 getNode :: Canvas -> CO.Coordinates -> Maybe Char
-getNode canvas point = Nothing -- TODO
---if (!isOutOfBounds(position, this)) Some(rows(position.row)(position.column)) else None
+getNode canvas point = if not (isOutOfBounds point canvas)
+                       then Just ((rows canvas !! (CO.row point)) !! (CO.column point))
+                       else Nothing
+
+isOutOfBounds :: CO.Coordinates -> Canvas -> Bool
+isOutOfBounds point canvas = (CO.column point < 1 || CO.column point > canvasWidth canvas) ||
+                             (CO.row point < 1    || CO.row point >    canvasHeight canvas)
 
 instance Show Canvas where
     -- removes the last newline character

@@ -39,7 +39,7 @@ spec = do
             getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 1 3) `shouldBe` Just emptyPosition
         it "when getNode is called on a line then return the line character" $ do
             getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 6 3) `shouldBe` Just 'x'
-        it "when getNode is called out of bounds then return None" $ do
+        it "when getNode is called out of bounds then return Nothing" $ do
             getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 1 5) `shouldBe` Nothing
 
 main = hspec spec

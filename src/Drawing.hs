@@ -14,10 +14,6 @@ drawLayer _ _ = Left "Cannot draw a layer yet"
 drawLine :: CO.Coordinates -> CO.Coordinates -> CA.Canvas -> Either String CA.Canvas
 drawLine _ _ _ = Right CA.emptyCanvas -- TODO
 
-isOutOfBounds :: CO.Coordinates -> CA.Canvas -> Bool
-isOutOfBounds point canvas = (CO.column point < 1 || CO.column point > CA.canvasWidth canvas) ||
-                             (CO.row point < 1    || CO.row point >    CA.canvasHeight canvas)
-
 data ColourLayer = ColourLayer [CO.Coordinates] Char deriving Show
 
 emptyLayer :: ColourLayer
