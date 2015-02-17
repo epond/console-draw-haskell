@@ -11,7 +11,7 @@ applyCommand _ _ = Left "Not Implemented"
 drawLayer :: ColourLayer -> CA.Canvas -> Either String CA.Canvas
 drawLayer (ColourLayer points colour) canvas
     | exists points (CA.isOutOfBounds canvas) = Left "Out of bounds"
-    | otherwise                               = Left "Work in progress"
+    | otherwise                               = Right $ foldl CA.plot canvas points
 
 exists :: [CO.Coordinates] -> (CO.Coordinates -> Bool) -> Bool
 exists [] _ = False

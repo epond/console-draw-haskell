@@ -33,6 +33,9 @@ isOutOfBounds :: Canvas -> CO.Coordinates -> Bool
 isOutOfBounds canvas point = (CO.column point < 1 || CO.column point > canvasWidth canvas) ||
                              (CO.row point < 1    || CO.row point >    canvasHeight canvas)
 
+plot :: Canvas -> CO.Coordinates -> Canvas
+plot canvas _ = canvas -- TODO
+
 instance Show Canvas where
     -- removes the last newline character
     show canvas = reverse . drop 1 . reverse . unlines $ rows canvas
