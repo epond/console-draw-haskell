@@ -6,7 +6,7 @@ import Test.Hspec
 import Canvas
 import qualified Command as CO
 
-canvasEmpty = "\
+blank20by4Canvas = "\
 \----------------------\n\
 \|                    |\n\
 \|                    |\n\
@@ -26,7 +26,7 @@ spec :: Spec
 spec = do
     describe "Canvas" $ do
         it "can be created from width and height" $ do
-            show (createNewCanvas 20 4) `shouldBe` canvasEmpty
+            show (createNewCanvas 20 4) `shouldBe` blank20by4Canvas
         it "can read and show as the inverse of each other" $ do
             show (read canvasWithTwoLines :: Canvas) `shouldBe` canvasWithTwoLines
         it "can determine width" $ do
@@ -41,5 +41,19 @@ spec = do
             getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 6 3) `shouldBe` Just 'x'
         it "when getNode is called out of bounds then return Nothing" $ do
             getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 1 5) `shouldBe` Nothing
+        it "when plot is called with a valid point return the canvas with the point" $ do
+            let point = CO.Coordinates 3 2
+            let expectedCanvas = read "\
+\----------------------\n\
+\|                    |\n\
+\|   x                |\n\
+\|                    |\n\
+\|                    |\n\
+\----------------------" :: Canvas
+            plot (read blank20by4Canvas :: Canvas) point `shouldBe` expectedCanvas
+        it "when plot is called with an out of bounds point return the original canvas" $ do
+            let point = CO.Coordinates 30 2
+            plot (read canvasWithTwoLines :: Canvas) point `shouldBe` (read canvasWithTwoLines :: Canvas)
+
 
 main = hspec spec
