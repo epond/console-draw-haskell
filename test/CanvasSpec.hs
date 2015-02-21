@@ -50,10 +50,10 @@ spec = do
 \|                    |\n\
 \|                    |\n\
 \----------------------" :: Canvas
-            plot (read blank20by4Canvas :: Canvas) point `shouldBe` expectedCanvas
+            plot 'x' (read blank20by4Canvas :: Canvas) point `shouldBe` expectedCanvas
         it "when plot is called with an out of bounds point return the original canvas" $ do
             let point = CO.Coordinates 30 2
-            plot (read canvasWithTwoLines :: Canvas) point `shouldBe` (read canvasWithTwoLines :: Canvas)
+            plot 'x' (read canvasWithTwoLines :: Canvas) point `shouldBe` (read canvasWithTwoLines :: Canvas)
 
 
 main = hspec spec
