@@ -34,7 +34,14 @@ isOutOfBounds canvas point = (CO.column point < 1 || CO.column point > canvasWid
                              (CO.row point < 1    || CO.row point >    canvasHeight canvas)
 
 plot :: Char -> Canvas -> CO.Coordinates -> Canvas
-plot _ canvas _ = canvas -- TODO
+plot char canvas point = Canvas $ update (rows canvas) (CO.row point) newrow
+    where newrow = update ((rows canvas) !! (CO.row point)) (CO.column point) char
+
+-- update replaces the list element at the given index with the supplied value
+update :: [a] -> Int -> a -> [a]
+update [] _ _ = []
+update (_:xs) 0 value = (value : xs)
+update (x:xs) index value = x : (update xs (index - 1) value)
 
 instance Show Canvas where
     -- removes the last newline character
