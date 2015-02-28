@@ -3,8 +3,9 @@
 module CanvasSpec where
 
 import Test.Hspec
+import Common
 import Canvas
-import qualified Command as CO
+import Command
 
 blank20by4Canvas = "\
 \----------------------\n\
@@ -36,13 +37,13 @@ spec = do
             canvasHeight (createNewCanvas 10 5) `shouldBe` 5
             canvasHeight emptyCanvas `shouldBe` 0
         it "when getNode is called on an empty space then return the empty character" $ do
-            getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 1 3) `shouldBe` Just emptyPosition
+            getNode (read canvasWithTwoLines :: Canvas) (Coordinates 1 3) `shouldBe` Just emptyPosition
         it "when getNode is called on a line then return the line character" $ do
-            getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 6 3) `shouldBe` Just 'x'
+            getNode (read canvasWithTwoLines :: Canvas) (Coordinates 6 3) `shouldBe` Just 'x'
         it "when getNode is called out of bounds then return Nothing" $ do
-            getNode (read canvasWithTwoLines :: Canvas) (CO.Coordinates 1 5) `shouldBe` Nothing
+            getNode (read canvasWithTwoLines :: Canvas) (Coordinates 1 5) `shouldBe` Nothing
         it "when plot is called with a valid point return the canvas with the point" $ do
-            let point = CO.Coordinates 3 2
+            let point = Coordinates 3 2
             let expectedCanvas = read "\
 \----------------------\n\
 \|                    |\n\
@@ -52,7 +53,7 @@ spec = do
 \----------------------" :: Canvas
             plot 'x' (read blank20by4Canvas :: Canvas) point `shouldBe` expectedCanvas
         it "when plot is called with an out of bounds point return the original canvas" $ do
-            let point = CO.Coordinates 30 2
+            let point = Coordinates 30 2
             plot 'x' (read canvasWithTwoLines :: Canvas) point `shouldBe` (read canvasWithTwoLines :: Canvas)
 
 

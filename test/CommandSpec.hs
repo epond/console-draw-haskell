@@ -3,6 +3,7 @@
 module CommandSpec where
 
 import Test.Hspec
+import Common
 import Command
 
 spec :: Spec

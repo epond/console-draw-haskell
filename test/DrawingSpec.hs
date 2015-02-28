@@ -3,6 +3,7 @@
 module DrawingSpec where
 
 import Test.Hspec
+import Common
 import Drawing
 import Canvas
 import Command
