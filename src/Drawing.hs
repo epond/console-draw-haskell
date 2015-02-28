@@ -18,7 +18,7 @@ applyCommand (CO.DrawRectangleCommand ulCorner lrCorner) canvas =
         drawLine (CO.Coordinates (CO.column lrCorner) (CO.row lrCorner)) (CO.Coordinates (CO.column ulCorner) (CO.row lrCorner)) >>=
         drawLine (CO.Coordinates (CO.column ulCorner) (CO.row lrCorner)) (CO.Coordinates (CO.column ulCorner) (CO.row ulCorner))
 applyCommand (CO.BucketFillCommand _ _) _ = Left "Not yet implemented"
-applyCommand CO.ClearCommand _            = Left "Not yet implemented"
+applyCommand CO.ClearCommand canvas       = Right $ CA.createNewCanvas (CA.canvasWidth canvas) (CA.canvasHeight canvas)
 
 drawLayer :: ColourLayer -> CA.Canvas -> Either String CA.Canvas
 drawLayer (ColourLayer points colour) canvas

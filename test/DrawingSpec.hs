@@ -93,10 +93,19 @@ spec = do
                 \|     x              |\n\
                 \----------------------" :: Canvas
             let command = DrawRectangleCommand (Coordinates 16 1) (Coordinates 20 3)
-            applyCommand command initialCanvas `shouldBe` Right(read "\
+            applyCommand command initialCanvas `shouldBe` Right (read "\
                 \----------------------\n\
                 \|               xxxxx|\n\
                 \|xxxxxx         x   x|\n\
                 \|     x         xxxxx|\n\
                 \|     x              |\n\
                 \----------------------" :: Canvas)
+        it "Given a Clear command with a non-empty Canvas then return a blank Canvas of the same dimensions" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas
+            applyCommand ClearCommand initialCanvas `shouldBe` Right blank20by4Canvas
