@@ -84,3 +84,19 @@ spec = do
         it "Given a DrawLine command with an oblique line then an error should be returned" $ do
             let command = DrawLineCommand (Coordinates 1 2) (Coordinates 3 4)
             applyCommand command blank20by4Canvas `shouldBe` Left "Only horizontal and vertical lines are supported"
+        it "Given a DrawRectangle command then the Canvas should contain the rectangle" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|                    |\n\
+                \|xxxxxx              |\n\
+                \|     x              |\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas
+            let command = DrawRectangleCommand (Coordinates 16 1) (Coordinates 20 3)
+            applyCommand command initialCanvas `shouldBe` Right(read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas)

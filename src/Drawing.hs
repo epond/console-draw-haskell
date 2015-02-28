@@ -11,7 +11,14 @@ import qualified Canvas as CA
 applyCommand :: CO.CanvasCommand -> CA.Canvas -> Either String CA.Canvas
 applyCommand (CO.NewCanvasCommand width height) _ = Right $ CA.createNewCanvas width height
 applyCommand (CO.DrawLineCommand startPos endPos) canvas = drawLine startPos endPos canvas
-applyCommand _ _ = Left "Not Implemented"
+applyCommand (CO.DrawRectangleCommand ulCorner lrCorner) canvas =
+    Right canvas >>=
+        drawLine (CO.Coordinates (CO.column ulCorner) (CO.row ulCorner)) (CO.Coordinates (CO.column lrCorner) (CO.row ulCorner)) >>=
+        drawLine (CO.Coordinates (CO.column lrCorner) (CO.row ulCorner)) (CO.Coordinates (CO.column lrCorner) (CO.row lrCorner)) >>=
+        drawLine (CO.Coordinates (CO.column lrCorner) (CO.row lrCorner)) (CO.Coordinates (CO.column ulCorner) (CO.row lrCorner)) >>=
+        drawLine (CO.Coordinates (CO.column ulCorner) (CO.row lrCorner)) (CO.Coordinates (CO.column ulCorner) (CO.row ulCorner))
+applyCommand (CO.BucketFillCommand _ _) _ = Left "Not yet implemented"
+applyCommand CO.ClearCommand _            = Left "Not yet implemented"
 
 drawLayer :: ColourLayer -> CA.Canvas -> Either String CA.Canvas
 drawLayer (ColourLayer points colour) canvas
