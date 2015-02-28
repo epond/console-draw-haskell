@@ -18,3 +18,6 @@ spec = do
             parseCommand "B 3 4 o" `shouldBe` Just (BucketFillCommand (Coordinates 3 4) 'o')
         it "can parse a clear command" $ do
             parseCommand "CLR" `shouldBe` Just ClearCommand
+        it "can parse commands in lower case" $ do
+            parseCommand "c 20 4" `shouldBe` Just (NewCanvasCommand 20 4)
+            parseCommand "b 3 4 o" `shouldBe` Just (BucketFillCommand (Coordinates 3 4) 'o')
