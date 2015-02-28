@@ -26,3 +26,7 @@ instance Num Coordinates where
    abs (Coordinates a b) = Coordinates (abs a) (abs b)
    signum (Coordinates a b) = Coordinates (signum a) (signum b) 
    fromInteger i = Coordinates (fromInteger i) (fromInteger i)
+
+-- Find the difference between two points
+pointDiff :: Coordinates -> Coordinates -> Coordinates
+pointDiff this that = Coordinates (column this - column that) (row this - row that)
