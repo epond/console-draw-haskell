@@ -4,7 +4,7 @@ import Data.Char
 import Common
 
 parseCommand :: String -> Maybe CanvasCommand
-parseCommand commandString = case ((words . normaliseCase) commandString) of
+parseCommand commandString = case (words . normaliseCase) commandString of
     "C" : w : h : [] -> Just $ NewCanvasCommand (read w) (read h)
     "L" : x1 : y1 : x2 : y2 : [] -> Just $ DrawLineCommand (Coordinates (read x1) (read y1)) (Coordinates (read x2) (read y2))
     "R" : x1 : y1 : x2 : y2 : [] -> Just $ DrawRectangleCommand (Coordinates (read x1) (read y1)) (Coordinates (read x2) (read y2))

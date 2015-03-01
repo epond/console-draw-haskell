@@ -32,7 +32,9 @@ drawLine start end canvas =
     let difference = end `pointDiff` start
     in if (row difference /= 0 && column difference /= 0)
        then Left "Only horizontal and vertical lines are supported"
-       else drawLayer (ColourLayer (linePoints difference start) lineColour) canvas
+       else let points = linePoints difference start
+                lineLayer = ColourLayer points lineColour
+            in drawLayer lineLayer canvas
 
 exists :: [Coordinates] -> (Coordinates -> Bool) -> Bool
 exists [] _ = False

@@ -17,7 +17,7 @@ drawingConsole canvas = do
     -- TODO find a way to avoid this additional newline as putStr doesn't immediately write to stdout 
     putStrLn "enter command: "
     enteredCommand <- getLine
-    if (((toLower . pack) enteredCommand) == "q")
+    if "q" == (toLower . pack $ enteredCommand)
         then return ()
         else do
             case (parseAndApply enteredCommand canvas) of
