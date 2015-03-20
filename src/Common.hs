@@ -1,6 +1,6 @@
 module Common where
 
-data ColourLayer = ColourLayer [Coordinates] Char deriving Show
+data ColourLayer = ColourLayer{lPoints :: [Coordinates], lColour :: Char} deriving (Eq, Show)
 
 emptyLayer :: ColourLayer
 emptyLayer = ColourLayer [] emptyPosition
@@ -11,7 +11,16 @@ lineColour = 'x'
 emptyPosition :: Char
 emptyPosition = ' '
 
-data Coordinates = Coordinates{column :: Int, row :: Int} deriving (Show, Eq)
+data Coordinates = Coordinates{column :: Int, row :: Int} deriving (Show, Eq, Ord)
+
+left :: Coordinates -> Coordinates
+left node = Coordinates (column node - 1) (row node)
+right :: Coordinates -> Coordinates
+right node = Coordinates (column node + 1) (row node)
+up :: Coordinates -> Coordinates
+up node = Coordinates (column node) (row node - 1)
+down :: Coordinates -> Coordinates
+down node = Coordinates (column node) (row node + 1)
 
 -- idea from http://stackoverflow.com/a/17768051
 instance Num Coordinates where
