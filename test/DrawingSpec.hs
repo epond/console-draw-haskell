@@ -110,3 +110,61 @@ spec = do
                 \|     x              |\n\
                 \----------------------" :: Canvas
             applyCommand ClearCommand initialCanvas `shouldBe` Right blank20by4Canvas
+        it "Given a BucketFill command in an open area then the Canvas should fill appropriately" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas
+            let command = BucketFillCommand (Coordinates 10 3) 'o'
+            applyCommand command initialCanvas `shouldBe` Right (read "\
+                \----------------------\n\
+                \|oooooooooooooooxxxxx|\n\
+                \|xxxxxxooooooooox   x|\n\
+                \|     xoooooooooxxxxx|\n\
+                \|     xoooooooooooooo|\n\
+                \----------------------" :: Canvas)
+        it "Given a BucketFill command in a complicated open area then the Canvas should fill appropriately" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x   xxxxx xxxxx|\n\
+                \|     x   x   x      |\n\
+                \----------------------" :: Canvas
+            let command = BucketFillCommand (Coordinates 10 2) 'o'
+            applyCommand command initialCanvas `shouldBe` Right (read "\
+                \----------------------\n\
+                \|oooooooooooooooxxxxx|\n\
+                \|xxxxxxooooooooox   x|\n\
+                \|     xoooxxxxxoxxxxx|\n\
+                \|     xooox   xoooooo|\n\
+                \----------------------" :: Canvas)
+        it "Given a BucketFill command in a closed area then the Canvas should fill appropriately" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas
+            let command = BucketFillCommand (Coordinates 17 2) 'q'
+            applyCommand command initialCanvas `shouldBe` Right (read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         xqqqx|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas)
+        it "Given a BucketFill command on a non-empty origin position then do nothing" $ do
+            let initialCanvas = read "\
+                \----------------------\n\
+                \|               xxxxx|\n\
+                \|xxxxxx         x   x|\n\
+                \|     x         xxxxx|\n\
+                \|     x              |\n\
+                \----------------------" :: Canvas
+            let command = BucketFillCommand (Coordinates 4 2) 'q'
+            applyCommand command initialCanvas `shouldBe` Right initialCanvas
