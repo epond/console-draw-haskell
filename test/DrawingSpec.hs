@@ -66,16 +66,13 @@ spec = do
                 \|                    |\n\
                 \|                    |\n\
                 \----------------------" :: Canvas)
-        it "Given a DrawLine command then the Canvas should contain both old and new drawings" $ do
-            let initialCanvas = read "\
-                \----------------------\n\
-                \|                    |\n\
-                \|xxxxxx              |\n\
-                \|                    |\n\
-                \|                    |\n\
-                \----------------------" :: Canvas
-            let command = DrawLineCommand (Coordinates 6 3) (Coordinates 6 4)
-            applyCommand command initialCanvas `shouldBe` Right (read "\
+        it "Given chained commands the canvas should remember them all" $ do
+            let canvas =
+                    Right emptyCanvas >>=
+                    applyCommand (NewCanvasCommand 20 4) >>=
+                    applyCommand (DrawLineCommand (Coordinates 1 2) (Coordinates 6 2)) >>=
+                    applyCommand (DrawLineCommand (Coordinates 6 3) (Coordinates 6 4))
+            canvas `shouldBe` Right (read "\
                 \----------------------\n\
                 \|                    |\n\
                 \|xxxxxx              |\n\
