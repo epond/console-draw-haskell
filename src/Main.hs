@@ -6,16 +6,16 @@ import Data.Text
 import Command
 import Canvas
 import Drawing
+import System.IO
 
 main :: IO ()
 main = do
     drawingConsole emptyCanvas
 
--- TODO can this recursion be rewritten to use foldl to ensure tail recursion?
 drawingConsole :: Canvas -> IO ()
 drawingConsole canvas = do
-    -- TODO find a way to avoid this additional newline as putStr doesn't immediately write to stdout 
-    putStrLn "enter command: "
+    putStr "enter command: "
+    hFlush stdout
     enteredCommand <- getLine
     if "q" == (toLower . pack $ enteredCommand)
         then return ()
