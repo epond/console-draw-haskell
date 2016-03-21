@@ -10,6 +10,16 @@ A console application for drawing that supports the following commands:
  `B x y c`       | Fill the entire area connected to (x,y) with "colour" c. The behaviour of this is the same as that of the "bucket fill" tool in paint programs.
  `Q`             | Quit the program.
  `CLR`           | Clear the canvas
+ 
+## Build and run
+
+`stack build` will build the application
+
+`stack test` will run all tests
+
+`./run` or `stack exec console-draw-haskell` will start the application
+
+`stack ghci` will launch a REPL
 
 ## Sample I/O
 
